@@ -1,0 +1,150 @@
+React practical questions.
+
+1.)On /Off Toggle button
+
+ const [isToggled, setIsToggled] = useState(false);
+
+  const handleToggle = () => {
+    setIsToggled(!isToggled);
+  };
+
+  return (
+    <button onClick={handleToggle} className={`toggle-button ${isToggled ? 'toggled' : ''}`}>
+      {isToggled ? 'ON' : 'OFF'}
+    </button>
+  );
+
+2.)I/p odd or even
+
+  const [inputValue, setInputValue] = useState("");
+  const [result, setResult] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    if (isNaN(value)) {
+      setResult("Not a Number");
+    } else {
+      const number = parseInt(value, 10);
+      setResult(number % 2 === 0 ? "Even" : "Odd");
+    }
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+        placeholder="Enter a number"
+      />
+      <input type="text" value={result} readOnly placeholder="Result" />
+    </div>
+  );
+}
+
+3.Implement Search functionality
+ const items = [
+    "Apple",
+    "Banana",
+    "Orange",
+    "Mango",
+    "Pineapple",
+    "APricot",
+    "Grapes",
+    "Strawberry",
+  ];
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredItems = items.filter((item) =>
+    item.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={handleChange}
+      />
+      <ul>
+        {filteredItems.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+4.)Field validation 
+  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [errors, setErrors] = useState({ name: "", email: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const validate = () => {
+    let valid = true;
+    let errors = { name: "", email: "" };
+
+    if (!formData.name) {
+      errors.name = "Name is required";
+      valid = false;
+    } else if (formData.name.length < 3) {
+      errors.name = "Name must be at least 3 characters";
+      valid = false;
+    }
+
+    if (!formData.email) {
+      errors.email = "Email is required";
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email is invalid";
+      valid = false;
+    }
+
+    setErrors(errors);
+    return valid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      alert("Form is valid");
+      // Submit form data to the server
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Name:</label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        {errors.name && <span className="error">{errors.name}</span>}
+      </div>
+      <div>
+        <label>Email:</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        {errors.email && <span className="error">{errors.email}</span>}
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
