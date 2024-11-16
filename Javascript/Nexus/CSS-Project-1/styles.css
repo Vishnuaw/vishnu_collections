@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+}
+.card {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 10px ;
+}
+
+.Box{
+    display: inline-block;
+}
+
+.img{
+    height: 250px;
+    width: auto;
+    border-radius: 20px;
+}
+.Resturant {
+    font-size: 20px;
+    font-weight: bold;
+
+}
+.Rest , .food {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.rating{
+    background-color: green;
+    height: 20px;
+    padding: 3px;
+    position: absolute;
+    right: 5px;
+    color: white;
+    border-radius: 4px;
+}
+.price {
+    position:absolute;
+    right: 5px;
+}
